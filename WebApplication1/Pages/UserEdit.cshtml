@@ -1,0 +1,37 @@
+﻿@page
+@model WebApplication1.Pages.UserEditModel
+@{
+}
+
+<form method="post">
+    <div>
+        <label style="width: 80px;">Id: </label>
+        <input asp-for="user_id" readonly/>
+        <span asp-validation-for="user_id" style="color:red;"></span>
+    </div>
+    <div>
+        <label style="width: 80px;">Password: </label>
+        <input asp-for="user_password" />
+        <span asp-validation-for="user_password" style="color:red;"></span>
+    </div>
+    <div>
+        <label style="width: 80px;">Name: </label>
+        <input asp-for="user_name" />
+    </div>
+    <div>
+        <label style="width: 80px;">Age: </label>
+        <input asp-for="user_age" />
+    </div>
+    <div>
+        <label style="width: 80px;">Sex: </label>
+        <input asp-for="user_sex" />
+    </div>
+    <div>
+        <button asp-page-handler="Update">Update</button>
+    </div>
+    <div>@Model.message</div>
+</form>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

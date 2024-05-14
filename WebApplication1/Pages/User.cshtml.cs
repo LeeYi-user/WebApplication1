@@ -49,5 +49,34 @@ namespace WebApplication1.Pages
             HttpContext.Session.Remove("userId");
             Response.Redirect("Login3");
         }
+
+        public void OnPostUpdate(string id)
+        {
+            Response.Redirect("UserEdit?id=" + id);
+        }
+
+        public void OnPostDelete(string id)
+        {
+            var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
+            connection.Open();
+            var transaction = connection.BeginTransaction();
+
+            try
+            {
+                var command = connection.CreateCommand();
+                command.CommandText = @"DELETE FROM [Member] WHERE id = $id";
+                command.Parameters.AddWithValue("id", id);
+                command.ExecuteNonQuery();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+
+            connection.Close();
+
+            Response.Redirect("User");
+        }
     }
 }

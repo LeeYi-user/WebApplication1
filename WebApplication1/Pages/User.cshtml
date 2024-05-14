@@ -15,6 +15,7 @@
                 <th>Name</th>
                 <th>Age</th>
                 <th>Sex</th>
+                <th>Operation</th>
             </tr>
         </thead>
         <tbody>
@@ -31,10 +32,14 @@
                     <td>@Model.dataTable.Rows[i][2].ToString()</td>
                     <td>@Model.dataTable.Rows[i][3].ToString()</td>
                     <td>@(Model.dataTable.Rows[i][4].ToString() == "1" ? "男" : "女")</td>
+                    <td>
+                        <button class="btn btn-warning" asp-page-handler="Update" asp-route-id="@Model.dataTable.Rows[i][0].ToString()">Edit</button>
+                        <button class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@Model.dataTable.Rows[i][0].ToString()" onclick="if (!confirm('你確定嗎？')) return false;">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
-        <tfoot>
+@*         <tfoot>
             <tr>
                 <th>Name</th>
                 <th>Position</th>
@@ -42,6 +47,6 @@
                 <th>Age</th>
                 <th>Start date</th>
             </tr>
-        </tfoot>
+        </tfoot> *@
     </table>
 </form>
