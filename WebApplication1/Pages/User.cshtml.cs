@@ -18,11 +18,19 @@ namespace WebApplication1.Pages
         [BindProperty]
         public DataTable dataTable { get; set; }
 
+        [BindProperty]
+        public string WelcomeMessage { get; set; }
+
         public void OnGet()
         {
             user_id = HttpContext.Session.GetString("userId");
             if (HttpContext.Session.GetString("userId") == null) Response.Redirect("Login3");
-            else ShowUsers();
+            else
+            {
+                string user_name = HttpContext.Session.GetString("userName");
+                WelcomeMessage = "Hello, " + user_name + ". Nice to meet you.";
+                ShowUsers();
+            }
         }
 
         private void ShowUsers()

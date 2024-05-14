@@ -42,7 +42,12 @@ namespace WebApplication1.Pages
                 if (reader.HasRows)
                 {
                     ok = true;
+
+                    reader.Read();
+                    string user_name = reader[2].ToString();
+
                     HttpContext.Session.SetString("userId", user_id);
+                    HttpContext.Session.SetString("userName", user_name);
                 }
                 else
                 {
