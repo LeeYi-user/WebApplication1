@@ -1,0 +1,82 @@
+﻿@page
+@model WebApplication1.Pages.AlbumModel
+@{
+}
+
+<form method="post">
+    <button asp-page-handler="Add">Add new user</button>
+    <button asp-page-handler="Logout">Logout</button>
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>description</th>
+                <th>time</th>
+                <th>filename</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.dataTable != null)
+            {
+                for (int i = 0; i < Model.dataTable.Rows.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.dataTable.Rows[i][0].ToString()</td>
+                        <td>@Model.dataTable.Rows[i][1].ToString()</td>
+                        <td>@Model.dataTable.Rows[i][2].ToString()</td>
+                        <td>@Model.dataTable.Rows[i][3].ToString()</td>
+                        <td>
+                            <img src="~/Pictures/@Model.dataTable.Rows[i][4].ToString()" width="200" height="200" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</form>
+
+<div class="w3-container">
+    <h2>Slideshow Indicators</h2>
+    <p>Using images to indicate how many slides there are in the slideshow, and highlight the image the user is currently viewing.</p>
+</div>
+
+<div class="w3-content" style="max-width:1200px">
+    <img class="mySlides" src="~/Pictures/image1.jpg" style="width:200px;height:200px;display:none">
+    <img class="mySlides" src="~/Pictures/image2.jpg" style="width:200px;height:200px;">
+    <img class="mySlides" src="~/Pictures/image3.jpg" style="width:200px;height:200px;display: none">
+
+    <div class="w3-row-padding w3-section">
+        <div class="w3-col s4">
+            <img class="demo w3-opacity w3-hover-opacity-off" src="~/Pictures/image1.jpg" style="width:200px;height:200px;cursor:pointer" onclick="currentDiv(1)">
+        </div>
+        <div class="w3-col s4">
+            <img class="demo w3-opacity w3-hover-opacity-off" src="~/Pictures/image2.jpg" style="width:200px;height:200px;cursor:pointer" onclick="currentDiv(2)">
+        </div>
+        <div class="w3-col s4">
+            <img class="demo w3-opacity w3-hover-opacity-off" src="~/Pictures/image3.jpg" style="width:200px;height:200px;cursor:pointer" onclick="currentDiv(3)">
+        </div>
+    </div>
+</div>
+
+<script>
+    function currentDiv(n) {
+        showDivs(slideIndex = n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+        }
+        x[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " w3-opacity-off";
+    }
+</script>
