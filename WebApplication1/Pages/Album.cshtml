@@ -3,80 +3,163 @@
 @{
 }
 
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Hide the images by default */
+    .mySlides {
+        display: none;
+        text-align: center;
+    }
+
+    /* Add a pointer when hovering over the thumbnail images */
+    .cursor {
+        cursor: pointer;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* Container for image text */
+    .caption-container {
+        text-align: center;
+        background-color: #222;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Six columns side by side */
+    .column {
+        float: left;
+        width: 16.66%;
+    }
+
+    /* Add a transparency effect for thumnbail images */
+    .demo {
+        opacity: 0.6;
+    }
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+</style>
+
 <form method="post">
-    <button asp-page-handler="Add">Add new user</button>
+    <button asp-page-handler="Add">Add new picture</button>
     <button asp-page-handler="Logout">Logout</button>
-    <table id="myTable" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>description</th>
-                <th>time</th>
-                <th>filename</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.dataTable != null)
+
+    <!-- Full-width images with number text -->
+    @if (Model.dataTable != null)
+    {
+        for (int i = 0; i < Model.dataTable.Rows.Count; i++)
+        {
+            <div class="mySlides">
+                <div class="numbertext">1 / 4</div>
+                <img src="~/Pictures/@Model.dataTable.Rows[i][4].ToString()" style="width:300px;height:300px;">
+            </div>
+        }
+    }
+
+    <!-- Next and previous buttons -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <!-- Image text -->
+    <div class="caption-container">
+        <p id="caption"></p>
+    </div>
+
+    <!-- Thumbnail images -->
+    <div class="row">
+        @if (Model.dataTable != null)
+        {
+            for (int i = 0; i < Model.dataTable.Rows.Count; i++)
             {
-                for (int i = 0; i < Model.dataTable.Rows.Count; i++)
-                {
-                    <tr>
-                        <td>@Model.dataTable.Rows[i][0].ToString()</td>
-                        <td>@Model.dataTable.Rows[i][1].ToString()</td>
-                        <td>@Model.dataTable.Rows[i][2].ToString()</td>
-                        <td>@Model.dataTable.Rows[i][3].ToString()</td>
-                        <td>
-                            <img src="~/Pictures/@Model.dataTable.Rows[i][4].ToString()" width="200" height="200" />
-                        </td>
-                    </tr>
-                }
+                <div class="column">
+                    <img class="demo cursor" src="~/Pictures/@Model.dataTable.Rows[i][4].ToString()" style="width:100px;height:100px;" onclick="currentSlide(@(i+1))" alt="@Model.dataTable.Rows[i][1].ToString()<br>@Model.dataTable.Rows[i][2].ToString()">
+                </div>
             }
-        </tbody>
-    </table>
+        }
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("demo");
+            let captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+
+    </script>
+
 </form>
 
-<div class="w3-container">
-    <h2>Slideshow Indicators</h2>
-    <p>Using images to indicate how many slides there are in the slideshow, and highlight the image the user is currently viewing.</p>
-</div>
-
-<div class="w3-content" style="max-width:1200px">
-    <img class="mySlides" src="~/Pictures/image1.jpg" style="width:200px;height:200px;display:none">
-    <img class="mySlides" src="~/Pictures/image2.jpg" style="width:200px;height:200px;">
-    <img class="mySlides" src="~/Pictures/image3.jpg" style="width:200px;height:200px;display: none">
-
-    <div class="w3-row-padding w3-section">
-        <div class="w3-col s4">
-            <img class="demo w3-opacity w3-hover-opacity-off" src="~/Pictures/image1.jpg" style="width:200px;height:200px;cursor:pointer" onclick="currentDiv(1)">
-        </div>
-        <div class="w3-col s4">
-            <img class="demo w3-opacity w3-hover-opacity-off" src="~/Pictures/image2.jpg" style="width:200px;height:200px;cursor:pointer" onclick="currentDiv(2)">
-        </div>
-        <div class="w3-col s4">
-            <img class="demo w3-opacity w3-hover-opacity-off" src="~/Pictures/image3.jpg" style="width:200px;height:200px;cursor:pointer" onclick="currentDiv(3)">
-        </div>
-    </div>
-</div>
-
-<script>
-    function currentDiv(n) {
-        showDivs(slideIndex = n);
-    }
-
-    function showDivs(n) {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        if (n > x.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = x.length }
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
-        }
-        x[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " w3-opacity-off";
-    }
-</script>
+<div style="height:100px;"></div>

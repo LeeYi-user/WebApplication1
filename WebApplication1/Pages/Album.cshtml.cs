@@ -27,5 +27,10 @@ namespace WebApplication1.Pages
             reader.Close();
             connection.Close();
         }
+
+        public void OnPostAdd()
+        {
+            Response.Redirect("AlbumAdd");
+        }
     }
 }
