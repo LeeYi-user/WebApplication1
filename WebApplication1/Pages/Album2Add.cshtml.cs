@@ -76,7 +76,7 @@ namespace WebApplication1.Pages
 
                 connection.Close();
 
-                if (ok) Response.Redirect("Album");
+                if (ok) Response.Redirect("Album2");
                 else message = "Faild to add new picture.";
             }
         }
