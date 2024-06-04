@@ -1,0 +1,33 @@
+﻿@page
+@model WebApplication1.Pages.Album2AddModel
+@{
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label style="width: 90px;">Title: </label>
+        <input asp-for="picture_title" />
+        <span asp-validation-for="picture_title" style="color:red;"></span>
+    </div>
+    <div>
+        <label style="width: 90px;">Description: </label>
+        <textarea asp-for="picture_description" rows="5"></textarea>
+        <span asp-validation-for="picture_description" style="color:red;"></span>
+    </div>
+    <div>
+        <label style="width: 90px;">Time: </label>
+        <input asp-for="picture_time" />
+    </div>
+    <div>
+        <label style="width: 90px;">Filename: </label>
+        <input asp-for="picture_filename" />
+    </div>
+    <div>
+        <button asp-page-handler="Add">Add</button>
+    </div>
+    <div>@Model.message</div>
+</form>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
