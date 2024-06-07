@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApplication1.Pages
 {
-    public class UserEditModel : PageModel
+    public class AlbumEditModel : PageModel
     {
         public void OnGet()
         {
