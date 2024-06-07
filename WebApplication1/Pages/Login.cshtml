@@ -4,51 +4,43 @@
     ViewData["Title"] = "Login";
 }
 
-<style>
-    .input {
-        display: inline-block;
-        width: 80px;
-    }
+<div class="w3-container w3-half w3-margin-top">
 
-    .error {
-        color: red;
-    }
+    <form class="w3-container w3-card-4">
 
-    button {
-        width: 80px;
-    }
-</style>
-<script>
-    function checkInput() {
-        var user_id = document.getElementById("user_id").value;
-        var user_password = document.getElementById("user_password").value;
-        if (user_id == "" || user_password == "") {
-            alert("id or password could not be empty");
-            return false;
-        }
-        else return true;
-    }
-</script>
+        <p>
+            <input class="w3-input w3-margin-top" type="text" style="width:90%" required>
+            <label>Name</label>
+        </p>
+        <p>
+            <input class="w3-input" type="password" style="width:90%" required>
+            <label>Password</label>
+        </p>
 
-<pre>
-帳號: leeyi
-密碼: 123456
-</pre>
+        <p>
+            <input class="w3-radio" type="radio" name="gender" value="male" checked>
+            <label>Male</label>
+        </p>
 
-<form method="post">
-    <div>
-        <span class="input">User ID:</span>
-        <input asp-for="user_id" type="text" />
-        <span class="error" asp-validation-for="user_id"></span>
-    </div>
+        <p>
+            <input class="w3-radio" type="radio" name="gender" value="female">
+            <label>Female</label>
+        </p>
 
-    <div style="margin-top:10px;">
-        <span class="input">Password:</span>
-        <input asp-for="user_password" type="password" />
-        <span class="error" asp-validation-for="user_password"></span>
-    </div>
+        <p>
+            <input class="w3-radio" type="radio" name="gender" value="" disabled>
+            <label>Don't know (Disabled)</label>
+        </p>
 
-    <button style="margin-top:10px;" asp-page-handler="Login" onclick="if (!checkInput()) return false;">Login</button>
-</form>
+        <p>
+            <input id="milk" class="w3-check" type="checkbox" checked="checked">
+            <label>Stay logged in</label>
+        </p>
 
-<div>@Model.message</div>
+        <p>
+            <button class="w3-button w3-section w3-teal w3-ripple"> Log in </button>
+        </p>
+
+    </form>
+
+</div>
