@@ -28,7 +28,7 @@ namespace WebApplication1.Pages
             else
             {
                 string user_name = HttpContext.Session.GetString("userName");
-                WelcomeMessage = "Hello, " + user_name + ". Nice to meet you.";
+                WelcomeMessage = "Hello, " + user_name + ". Nice to meet you!";
                 ShowUsers();
             }
         }

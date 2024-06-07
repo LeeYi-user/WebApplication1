@@ -1,0 +1,45 @@
+﻿@page
+@model WebApplication1.Pages.AlbumAddModel
+@{
+}
+
+<div class="container">
+    <div class="row mx-0 justify-content-center">
+        <div class="col-md-7 col-lg-5 px-lg-2 col-xl-4 px-xl-0 px-xxl-3">
+            <form method="POST"
+                  class="w-100 rounded-1 p-4 border bg-white"
+                  action="https://herotofu.com/start"
+                  enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+
+                <label class="d-block mb-4">
+                    <span class="form-label d-block">Your photo</span>
+                    <input required name="photo" type="file" class="form-control" />
+                </label>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary px-3 rounded-3">
+                        Upload
+                    </button>
+                </div>
+
+                <div class="d-block text-end">
+                    <div class="small">
+                        by
+                        <a href="https://herotofu.com"
+                           class="text-dark text-decoration-none"
+                           target="_blank">HeroTofu</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
