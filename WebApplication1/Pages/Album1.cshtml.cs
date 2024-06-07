@@ -9,7 +9,7 @@ using Microsoft.Data.Sqlite;
 
 namespace WebApplication1.Pages
 {
-    public class AlbumModel : PageModel
+    public class Album1Model : PageModel
     {
         [BindProperty]
         public DataTable dataTable { get; set; }
@@ -30,7 +30,7 @@ namespace WebApplication1.Pages
 
         public void OnPostAdd()
         {
-            Response.Redirect("AlbumAdd");
+            Response.Redirect("Album1Add");
         }
     }
 }

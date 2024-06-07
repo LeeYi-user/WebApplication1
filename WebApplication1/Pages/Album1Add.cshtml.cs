@@ -12,7 +12,7 @@ using Microsoft.Data.Sqlite;
 
 namespace WebApplication1.Pages
 {
-    public class AlbumAddModel : PageModel
+    public class Album1AddModel : PageModel
     {
         [BindProperty]
         public string picture_title { get; set; }
@@ -32,7 +32,7 @@ namespace WebApplication1.Pages
 
         private IWebHostEnvironment _environment;
 
-        public AlbumAddModel(IWebHostEnvironment environment)
+        public Album1AddModel(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
@@ -86,7 +86,7 @@ namespace WebApplication1.Pages
 
                 connection.Close();
 
-                if (ok) Response.Redirect("Album");
+                if (ok) Response.Redirect("Album1");
                 else message = "Faild to add new picture.";
             }
         }
