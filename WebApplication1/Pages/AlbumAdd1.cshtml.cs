@@ -12,7 +12,7 @@ using Microsoft.Data.Sqlite;
 
 namespace WebApplication1.Pages
 {
-    public class Album2AddModel : PageModel
+    public class AlbumAdd1Model : PageModel
     {
         [BindProperty]
         public string picture_title { get; set; }
@@ -32,7 +32,7 @@ namespace WebApplication1.Pages
 
         private IWebHostEnvironment _environment;
 
-        public Album2AddModel(IWebHostEnvironment environment)
+        public AlbumAdd1Model(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
@@ -41,13 +41,24 @@ namespace WebApplication1.Pages
         {
             picture_time = DateTime.Now;
         }
+
+        /*public void OnPostAdd()
+        {
+            string file = Path.Combine(_environment.ContentRootPath, @"wwwroot\Pictures", picture_filename.FileName);
+            //message = file;
+
+            using (var fileStream = new FileStream(file, FileMode.Create))
+            {
+                picture_filename.CopyToAsync(fileStream);
+            }
+        }*/
+
         public async Task OnPostAsync()
         {
-            using (var memoryStream = new MemoryStream())
+            string file = Path.Combine(_environment.ContentRootPath, @"wwwroot\Pictures", picture_filename.FileName);
+            using (var fileStream = new FileStream(file, FileMode.Create))
             {
-                await picture_filename.CopyToAsync(memoryStream);
-                byte[] bytes = memoryStream.ToArray();
-                string base64 = Convert.ToBase64String(bytes);
+                await picture_filename.CopyToAsync(fileStream);
 
                 bool ok = false;
                 var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
@@ -57,12 +68,11 @@ namespace WebApplication1.Pages
                 try
                 {
                     var command = connection.CreateCommand();
-                    command.CommandText = @"INSERT INTO Picture2 (title, description, time, filename, data) VALUES (@title, @description, @time, @filename, @data)";
+                    command.CommandText = @"INSERT INTO Picture (title, description, time, filename) VALUES (@title, @description, @time, @filename)";
                     command.Parameters.AddWithValue("title", picture_title);
                     command.Parameters.AddWithValue("description", picture_description);
                     command.Parameters.AddWithValue("time", picture_time.ToString());
                     command.Parameters.AddWithValue("filename", picture_filename.FileName);
-                    command.Parameters.AddWithValue("data", base64);
                     command.ExecuteNonQuery();
 
                     transaction.Commit();
@@ -76,7 +86,7 @@ namespace WebApplication1.Pages
 
                 connection.Close();
 
-                if (ok) Response.Redirect("Album2");
+                if (ok) Response.Redirect("Album1");
                 else message = "Faild to add new picture.";
             }
         }

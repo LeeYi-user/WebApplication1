@@ -3,39 +3,53 @@
 @{
 }
 
-<form method="post">
-    <div>
-        <label style="width: 80px;">Id: </label>
-        <input asp-for="user_id" />
-        <span asp-validation-for="user_id" style="color:red;"></span>
-    </div>
-    <div>
-        <label style="width: 80px;">Password: </label>
-        <input asp-for="user_password" />
-        <span asp-validation-for="user_password" style="color:red;"></span>
-    </div>
-    <div>
-        <label style="width: 80px;">Name: </label>
-        <input asp-for="user_name" />
-    </div>
-    <div>
-        <label style="width: 80px;">Age: </label>
-        <input asp-for="user_age" />
-    </div>
-    <div>
-        <label style="width: 80px;">Sex: </label>
-        <input type="radio" asp-for="user_sex" value="1" checked>
-        <label for="sex1">Male</label>
-        <input type="radio" asp-for="user_sex" value="0">
-        <label for="sex2">Female</label>
-        @*<input asp-for="user_sex" />*@
-    </div>
-    <div>
-        <button asp-page-handler="Add">Add</button>
-    </div>
-    <div>@Model.message</div>
-</form>
+<div class="w3-container w3-half w3-margin-top">
 
-@section scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
+    <form class="w3-container w3-card-4">
+
+        <div class="d-flex flex-row w3-margin-top">
+            <div>
+                <input class="w3-input" type="text" style="width:90%" required>
+                <label>Id</label>
+            </div>
+            <div>
+                <input class="w3-input" type="password" style="width:90%" required>
+                <label>Password</label>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row w3-margin-top">
+            <div>
+                <input class="w3-input" type="text" style="width:90%" required>
+                <label>Name</label>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+                <label></label>
+                <input id="startDate" class="form-control" type="date" />
+                <span id="startDateSelected"></span>
+            </div>
+        </div>
+
+        <p>
+            <input class="w3-radio" type="radio" name="gender" value="male" checked>
+            <label>Male</label>
+        </p>
+
+        <p>
+            <input class="w3-radio" type="radio" name="gender" value="female">
+            <label>Female</label>
+        </p>
+
+        <p>
+            <input class="w3-radio" type="radio" name="gender" value="" disabled>
+            <label>Don't know (Disabled)</label>
+        </p>
+
+        <p>
+            <button class="w3-button w3-section w3-teal w3-ripple"> Add </button>
+        </p>
+
+    </form>
+
+</div>

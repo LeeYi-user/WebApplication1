@@ -30,7 +30,7 @@ namespace WebApplication1.Pages
 
         public void OnPostAdd()
         {
-            Response.Redirect("Album1Add");
+            Response.Redirect("AlbumAdd1");
         }
     }
 }
