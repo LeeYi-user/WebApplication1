@@ -1,0 +1,23 @@
+﻿@page
+@model WebApplication1.Pages.PostAddModel
+@{
+}
+
+<style>
+    input:focus {
+        outline: none;
+    }
+</style>
+
+<input type="text" class="fs-1 border-0" placeholder="Title"></input>
+
+<div class="mt-3">
+    <textarea class="w-100 border shadow-sm form-control fs-5" rows="10"></textarea>
+</div>
+
+<hr />
+
+<div class="d-flex flex-row justify-content-between">
+    <a href="/Posts">Cancel</a>
+    <a href="#">Confirm</a>
+</div>
