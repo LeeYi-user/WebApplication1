@@ -11,23 +11,23 @@
                   enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Title</label>
-                    <input class="form-control" id="exampleFormControlInput1">
+                    <input asp-for="picture_title" class="form-control" id="exampleFormControlInput1" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea asp-for="picture_description" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label>Date</label>
-                    <input id="startDate" class="form-control" type="date" />
+                    <input asp-for="picture_time" id="startDate" class="form-control" type="date" required />
                     <span id="startDateSelected"></span>
                 </div>
 
                 <label class="d-block mb-4">
                     <span class="form-label d-block">Your photo</span>
-                    <input required name="photo" type="file" class="form-control" />
+                    <input asp-for="picture_filename" type="file" class="form-control" required />
                 </label>
 
                 <div class="mb-3">
