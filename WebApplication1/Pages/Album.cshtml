@@ -82,7 +82,7 @@
     }
 </style>
 
-<main style="margin-bottom: 40px;">
+<form style="margin-bottom: 40px;" method="post">
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
@@ -115,8 +115,8 @@
                                     <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@Model.dataTable.Rows[i][2].ToString()</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/AlbumEdit';">Edit</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                            <button type="submit" asp-page-handler="Update" asp-route-id="@Model.dataTable.Rows[i][0].ToString()" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                            <button type="submit" asp-page-handler="Delete" asp-route-id="@Model.dataTable.Rows[i][0].ToString()" class="btn btn-sm btn-outline-secondary" onclick="if (!confirm('你確定嗎？')) return false;">Delete</button>
                                         </div>
                                         <small class="text-body-secondary">@Model.dataTable.Rows[i][3].ToString()</small>
                                     </div>
@@ -128,4 +128,4 @@
             </div>
         </div>
     </div>
-</main>
+</form>

@@ -41,6 +41,7 @@ namespace WebApplication1.Pages
         {
             picture_time = DateTime.Now;
         }
+
         public async Task OnPostAsync()
         {
             using (var memoryStream = new MemoryStream())
@@ -76,7 +77,7 @@ namespace WebApplication1.Pages
 
                 connection.Close();
 
-                if (ok) Response.Redirect("Album2");
+                if (ok) Response.Redirect("Album");
                 else message = "Faild to add new picture.";
             }
         }
