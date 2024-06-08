@@ -5,49 +5,48 @@
 
 <div class="w3-container w3-half w3-margin-top">
 
-    <form class="w3-container w3-card-4">
+    <form class="w3-container w3-card-4" method="post">
 
         <div class="d-flex flex-row w3-margin-top">
             <div>
-                <input class="w3-input" type="text" style="width:90%" required>
+                <input asp-for="user_id" class="w3-input" type="text" style="width:90%" readonly>
                 <label>Id</label>
             </div>
             <div>
-                <input class="w3-input" type="password" style="width:90%" required>
+                <input asp-for="user_password" class="w3-input" type="password" style="width:90%" required>
                 <label>Password</label>
             </div>
         </div>
 
         <div class="d-flex flex-row w3-margin-top">
             <div>
-                <input class="w3-input" type="text" style="width:90%" required>
+                <input asp-for="user_name" class="w3-input" type="text" style="width:90%" required>
                 <label>Name</label>
             </div>
 
-            <div class="col-lg-4 col-sm-6">
-                <label></label>
-                <input id="startDate" class="form-control" type="date" />
-                <span id="startDateSelected"></span>
+            <div>
+                <input asp-for="user_age" class="w3-input" type="number" min="1" step="1" style="width:90%" required>
+                <label>Age</label>
             </div>
         </div>
 
         <p>
-            <input class="w3-radio" type="radio" name="gender" value="male" checked>
+            <input asp-for="user_sex" value="1" class="w3-radio" type="radio" checked>
             <label>Male</label>
         </p>
 
         <p>
-            <input class="w3-radio" type="radio" name="gender" value="female">
+            <input asp-for="user_sex" value="0" class="w3-radio" type="radio">
             <label>Female</label>
         </p>
 
         <p>
-            <input class="w3-radio" type="radio" name="gender" value="" disabled>
+            <input class="w3-radio" type="radio" value="" disabled>
             <label>Don't know (Disabled)</label>
         </p>
 
         <p>
-            <button class="w3-button w3-section w3-teal w3-ripple"> Update </button>
+            <button asp-page-handler="Update" class="w3-button w3-section w3-teal w3-ripple"> Update </button>
         </p>
 
     </form>
