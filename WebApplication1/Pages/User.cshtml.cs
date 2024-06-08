@@ -55,7 +55,7 @@ namespace WebApplication1.Pages
         public void OnPostLogout()
         {
             HttpContext.Session.Remove("userId");
-            Response.Redirect("Login3");
+            Response.Redirect("Login");
         }
 
         public void OnPostUpdate(string id)
