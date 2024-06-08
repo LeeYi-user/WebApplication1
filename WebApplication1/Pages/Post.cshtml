@@ -11,10 +11,10 @@
 
 <hr />
 
-<div class="form-floating">
-    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+<form class="form-floating" method="post">
+    <textarea id="comment" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
     <label for="floatingTextarea2">Comments</label>
-</div>
+</form>
 
 <div class="border mt-4 card shadow-sm">
     <div class="p-3 card-body">
@@ -35,3 +35,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("comment").addEventListener("keypress", e => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+
+            e.currentTarget.closest("form").submit();
+        }
+    });
+</script>

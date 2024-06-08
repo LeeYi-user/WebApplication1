@@ -235,93 +235,52 @@
         line-height: 1.5em;
         overflow: hidden;
     }
+
+    .realLink:hover {
+        text-decoration: none;
+    }
+
+    .fakeLink {
+        border: 0px;
+        background-color: transparent;
+        color: blue;
+        cursor: hand;
+        padding: 0;
+    }
+
+    .fakeLink:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <div class="container" style="margin-bottom: 64px;">
     <div class="row row-cols-2 mt-n5">
-        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-grid border">
-                <div class="blog-grid-text p-4">
-                    <h3 class="h5 mb-3"><a href="/Post">Business tool for your customer</a></h3>
-                    <p class="display-30">Exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                    <div class="meta meta-style2 d-flex flex-row justify-content-between">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-calendar-alt"></i> 10 Jul, <script>document.write(new Date().getFullYear())</script></a></li>
-                            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
-                            <li><a href="#"><i class="fas fa-comments"></i> 38</a></li>
-                        </ul>
+        @if (Model.dataTable != null)
+        {
+            for (int i = 0; i < Model.dataTable.Rows.Count; i++)
+            {
+                <form method="post" class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                    <div class="blog-grid border">
+                        <div class="blog-grid-text p-4">
+                            <h3 class="h5 mb-3"><a href="/Post">@Model.dataTable.Rows[i][1].ToString()</a></h3>
+                            <p class="display-30">@Model.dataTable.Rows[i][2].ToString()</p>
+                            <div class="meta meta-style2 d-flex flex-row justify-content-between">
+                                <ul>
+                                    <li><a class="realLink" href="#"><i class="fas fa-calendar-alt"></i> @DateTime.ParseExact(Model.dataTable.Rows[i][3].ToString(), "yyyy/M/d tt h:mm:ss", null, System.Globalization.DateTimeStyles.None).ToString("d MMM, yyyy", new System.Globalization.CultureInfo("en-US"))</a></li>
+                                    <li><a class="realLink" href="#"><i class="fas fa-user"></i> @Model.dataTable.Rows[i][4].ToString()</a></li>
+                                    <li><a class="realLink" href="#"><i class="fas fa-comments"></i> @Model.dataTable.Rows[i][5].ToString()</a></li>
+                                </ul>
 
-                        <ul>
-                            <li><a href="/PostEdit">Edit</a></li>
-                            <li><a href="#">Delete</a></li>
-                        </ul>
+                                <ul>
+                                    <li><button class="fakeLink" asp-page-handler="Update" asp-route-id="@Model.dataTable.Rows[i][0].ToString()">Edit</button></li>
+                                    <li><button class="fakeLink" asp-page-handler="Delete" asp-route-id="@Model.dataTable.Rows[i][0].ToString()">Delete</button></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-grid border">
-                <div class="blog-grid-text p-4">
-                    <h3 class="h5 mb-3"><a href="/Post">Business tool for your customer</a></h3>
-                    <p class="display-30">Exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                    <div class="meta meta-style2 d-flex flex-row justify-content-between">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-calendar-alt"></i> 10 Jul, <script>document.write(new Date().getFullYear())</script></a></li>
-                            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
-                            <li><a href="#"><i class="fas fa-comments"></i> 38</a></li>
-                        </ul>
-
-                        <ul>
-                            <li><a href="/PostEdit">Edit</a></li>
-                            <li><a href="#">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-grid border">
-                <div class="blog-grid-text p-4">
-                    <h3 class="h5 mb-3"><a href="/Post">Business tool for your customer</a></h3>
-                    <p class="display-30">Exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                    <div class="meta meta-style2 d-flex flex-row justify-content-between">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-calendar-alt"></i> 10 Jul, <script>document.write(new Date().getFullYear())</script></a></li>
-                            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
-                            <li><a href="#"><i class="fas fa-comments"></i> 38</a></li>
-                        </ul>
-
-                        <ul>
-                            <li><a href="/PostEdit">Edit</a></li>
-                            <li><a href="#">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-grid border">
-                <div class="blog-grid-text p-4">
-                    <h3 class="h5 mb-3"><a href="/Post">Business tool for your customer</a></h3>
-                    <p class="display-30">Exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                    <div class="meta meta-style2 d-flex flex-row justify-content-between">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-calendar-alt"></i> 10 Jul, <script>document.write(new Date().getFullYear())</script></a></li>
-                            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
-                            <li><a href="#"><i class="fas fa-comments"></i> 38</a></li>
-                        </ul>
-
-                        <ul>
-                            <li><a href="/PostEdit">Edit</a></li>
-                            <li><a href="#">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </form>
+            }
+        }
 
         <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp d-flex justify-content-center align-items-center" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
             <div class="">
