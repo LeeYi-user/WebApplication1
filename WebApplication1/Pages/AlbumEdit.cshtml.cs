@@ -56,7 +56,7 @@ namespace WebApplication1.Pages
                 picture_id = id;
                 picture_title = reader[1].ToString();
                 picture_description = reader[2].ToString();
-                picture_time = DateTime.ParseExact(reader[3].ToString(), "yyyy/M/d tt h:mm:ss", null, System.Globalization.DateTimeStyles.None);
+                picture_time = DateTime.ParseExact(reader[3].ToString(), "yyyy/M/d h:mm:ss", null);
             }
             connection.Close();
         }
@@ -74,7 +74,7 @@ namespace WebApplication1.Pages
                 command.CommandText = @"UPDATE Picture2 SET title = @title, description = @description, time = @time WHERE id = @id";
                 command.Parameters.AddWithValue("title", picture_title);
                 command.Parameters.AddWithValue("description", picture_description);
-                command.Parameters.AddWithValue("time", picture_time.ToString());
+                command.Parameters.AddWithValue("time", picture_time.ToString("yyyy/M/d h:mm:ss"));
                 command.Parameters.AddWithValue("id", picture_id);
                 command.ExecuteNonQuery();
 

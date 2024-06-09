@@ -34,7 +34,7 @@ namespace WebApplication1.Pages
                 command.CommandText = @"INSERT INTO [Posts] (title, content, date, user, comments) VALUES (@title, @content, @date, @user, 0)";
                 command.Parameters.AddWithValue("title", title);
                 command.Parameters.AddWithValue("content", content);
-                command.Parameters.AddWithValue("date", DateTime.Now.ToString("yyyy/M/d tt h:mm:ss"));
+                command.Parameters.AddWithValue("date", DateTime.Now.ToString("yyyy/M/d h:mm:ss"));
                 command.Parameters.AddWithValue("user", HttpContext.Session.GetString("userId") == null ? "Guest" : HttpContext.Session.GetString("userId"));
                 command.ExecuteNonQuery();
 
