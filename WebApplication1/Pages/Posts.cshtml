@@ -242,13 +242,14 @@
 
     .fakeLink {
         border: 0px;
-        background-color: transparent;
-        color: blue;
+        background-color: #fff;
+        color: #575a7b;
         cursor: hand;
         padding: 0;
     }
 
     .fakeLink:hover {
+        color: #0a58ca;
         text-decoration: underline;
     }
 </style>
@@ -262,7 +263,7 @@
                 <form method="post" class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                     <div class="blog-grid border">
                         <div class="blog-grid-text p-4">
-                            <h3 class="h5 mb-3"><a href="/Post">@Model.dataTable.Rows[i][1].ToString()</a></h3>
+                            <h3 class="h5 mb-3"><a href="/Post?id=@Model.dataTable.Rows[i][0].ToString()">@Model.dataTable.Rows[i][1].ToString()</a></h3>
                             <p class="display-30">@Model.dataTable.Rows[i][2].ToString()</p>
                             <div class="meta meta-style2 d-flex flex-row justify-content-between">
                                 <ul>
@@ -282,8 +283,8 @@
             }
         }
 
-        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp d-flex justify-content-center align-items-center" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="">
+        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <div class="d-flex align-items-center justify-content-center" style="width: 408px; height: 195px;">
                 <button class="btn btn-primary fw-bold" onclick="location.href='/PostAdd';"><i class="fas fa-plus"></i> Add </button>
             </div>
         </div>

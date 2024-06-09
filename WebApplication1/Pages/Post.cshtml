@@ -3,10 +3,10 @@
 @{
 }
 
-<h1>Post</h1>
+<h1>@Model.title</h1>
 
 <p>
-    Use this page to detail your site's blog posts.
+    @Model.content
 </p>
 
 <hr />
@@ -16,25 +16,21 @@
     <label for="floatingTextarea2">Comments</label>
 </form>
 
-<div class="border mt-4 card shadow-sm">
-    <div class="p-3 card-body">
-        This page sucks!
+@if (Model.dataTable != null)
+{
+    for (int i = 0; i < Model.dataTable.Rows.Count; i++)
+    {
+        <div class="border mt-4 card shadow-sm">
+            <div class="p-3 card-body">
+                @Model.dataTable.Rows[i][2].ToString()
 
-        <div class="float-end">
-            From LextYi
+                <div class="float-end">
+                    From @Model.dataTable.Rows[i][3].ToString()
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<div class="border mt-4 card shadow-sm">
-    <div class="p-3 card-body">
-        I agree.
-
-        <div class="float-end">
-            From LextYi
-        </div>
-    </div>
-</div>
+    }
+}
 
 <script>
     document.getElementById("comment").addEventListener("keypress", e => {
