@@ -61,7 +61,7 @@ namespace WebApplication1.Pages
                     command.CommandText = @"INSERT INTO Picture2 (title, description, time, filename, data) VALUES (@title, @description, @time, @filename, @data)";
                     command.Parameters.AddWithValue("title", picture_title);
                     command.Parameters.AddWithValue("description", picture_description);
-                    command.Parameters.AddWithValue("time", picture_time.ToString("yyyy/M/d h:mm:ss"));
+                    command.Parameters.AddWithValue("time", picture_time.ToString("yyyy/M/d"));
                     command.Parameters.AddWithValue("filename", picture_filename.FileName);
                     command.Parameters.AddWithValue("data", base64);
                     command.ExecuteNonQuery();

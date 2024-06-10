@@ -267,7 +267,7 @@
                             <p class="display-30">@Model.dataTable.Rows[i][2].ToString()</p>
                             <div class="meta meta-style2 d-flex flex-row justify-content-between">
                                 <ul>
-                                    <li><a class="realLink" href="#"><i class="fas fa-calendar-alt"></i> @DateTime.ParseExact(Model.dataTable.Rows[i][3].ToString(), "yyyy/M/d h:mm:ss", null, System.Globalization.DateTimeStyles.None).ToString("d MMM, yyyy", new System.Globalization.CultureInfo("en-US"))</a></li>
+                                    <li><a class="realLink" href="#"><i class="fas fa-calendar-alt"></i> @DateTime.ParseExact(Model.dataTable.Rows[i][3].ToString(), "yyyy/M/d", null, System.Globalization.DateTimeStyles.None).ToString("d MMM, yyyy", new System.Globalization.CultureInfo("en-US"))</a></li>
                                     <li><a class="realLink" href="#"><i class="fas fa-user"></i> @Model.dataTable.Rows[i][4].ToString()</a></li>
                                     <li><a class="realLink" href="#"><i class="fas fa-comments"></i> @Model.dataTable.Rows[i][5].ToString()</a></li>
                                 </ul>
