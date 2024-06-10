@@ -254,7 +254,7 @@
     }
 </style>
 
-<div class="container" style="margin-bottom: 64px;">
+<div class="container" style="margin-bottom: 96px;">
     <div class="row row-cols-2 mt-n5">
         @if (Model.dataTable != null)
         {
@@ -283,9 +283,9 @@
             }
         }
 
-        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="d-flex align-items-center justify-content-center" style="width: 408px; height: 195px;">
-                <button class="btn btn-primary fw-bold" onclick="location.href='/PostAdd';"><i class="fas fa-plus"></i> Add </button>
+        <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp d-flex align-items-center justify-content-center" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <div class="d-flex align-items-center justify-content-center rounded" style="width: 400px; height: 190px; border: 5px dashed rgba(13, 110, 253, .25);">
+                <button class="btn w-100 h-100 shadow-none fw-bold fs-4" style="color: rgba(13, 110, 253, .25);" onclick="location.href='/PostAdd';"><i class="fas fa-plus"></i> ADD </button>
             </div>
         </div>
     </div>
