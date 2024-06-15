@@ -83,6 +83,8 @@ namespace WebApplication1.Pages
                 command.Parameters.AddWithValue("user", HttpContext.Session.GetString("userName") == null ? "³X«È" : HttpContext.Session.GetString("userName"));
                 command.ExecuteNonQuery();
 
+                ShowComments(post_id);
+
                 command = connection.CreateCommand();
                 command.CommandText = @"UPDATE [Posts] SET comments = @comments WHERE id = @post_id";
                 command.Parameters.AddWithValue("comments", dataTable.Rows.Count + 1);
