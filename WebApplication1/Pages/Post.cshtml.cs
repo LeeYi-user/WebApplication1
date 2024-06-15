@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Text.Json;
 
 namespace WebApplication1.Pages
 {
@@ -19,9 +20,6 @@ namespace WebApplication1.Pages
 
         [BindProperty]
         public string comment { get; set; }
-
-        [BindProperty]
-        public string message { set; get; }
 
         public void OnGet(string id)
         {
@@ -70,9 +68,8 @@ namespace WebApplication1.Pages
             connection.Close();
         }
 
-        public void OnPostComment()
+        public IActionResult OnPostComment()
         {
-            bool ok = false;
             var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
             connection.Open();
 
@@ -86,8 +83,6 @@ namespace WebApplication1.Pages
                 command.Parameters.AddWithValue("user", HttpContext.Session.GetString("userName") == null ? "³X«È" : HttpContext.Session.GetString("userName"));
                 command.ExecuteNonQuery();
 
-                ShowComments(post_id);
-
                 command = connection.CreateCommand();
                 command.CommandText = @"UPDATE [Posts] SET comments = @comments WHERE id = @post_id";
                 command.Parameters.AddWithValue("comments", dataTable.Rows.Count + 1);
@@ -95,18 +90,34 @@ namespace WebApplication1.Pages
                 command.ExecuteNonQuery();
 
                 transaction.Commit();
-                ok = true;
             }
             catch
             {
                 transaction.Rollback();
-                ok = false;
             }
 
             connection.Close();
+            ShowComments(post_id);
 
-            if (ok) Response.Redirect("Post?id=" + post_id);
-            else message = "Faild to add new user.";
+            return Content(DataTableToJson(dataTable));
+        }
+
+        private string DataTableToJson(DataTable table)
+        {
+            // Convert DataTable to a list of dictionaries
+            var rows = new List<Dictionary<string, object>>();
+            foreach (DataRow row in table.Rows)
+            {
+                var dict = new Dictionary<string, object>();
+                foreach (DataColumn col in table.Columns)
+                {
+                    dict[col.ColumnName] = row[col];
+                }
+                rows.Add(dict);
+            }
+
+            // Serialize the list of dictionaries to JSON
+            return JsonSerializer.Serialize(rows);
         }
     }
 }

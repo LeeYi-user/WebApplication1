@@ -17,30 +17,22 @@
     <label for="floatingTextarea2">Comments</label>
 </form>
 
-@if (Model.dataTable != null)
-{
-    for (int i = 0; i < Model.dataTable.Rows.Count; i++)
+<div id="comments">
+    @if (Model.dataTable != null)
     {
-        <div class="border mt-4 card shadow-sm">
-            <div class="p-3 card-body">
-                @Model.dataTable.Rows[i][2].ToString()
+        for (int i = Model.dataTable.Rows.Count - 1; i >= 0; i--)
+        {
+            <div class="border mt-4 card shadow-sm">
+                <div class="p-3 card-body">
+                    @Model.dataTable.Rows[i][2].ToString()
 
-                <div class="float-end">
-                    From @Model.dataTable.Rows[i][3].ToString()
+                    <div class="float-end">
+                        From @Model.dataTable.Rows[i][3].ToString()
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
-}
+</div>
 
 <div style="margin-bottom: 64px;"></div>
-
-<script>
-    document.getElementById("comment").addEventListener("keypress", e => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-
-            e.currentTarget.closest("form").submit();
-        }
-    });
-</script>
