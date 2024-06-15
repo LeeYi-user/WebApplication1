@@ -14,7 +14,7 @@
 <form class="form-floating" method="post" asp-page-handler="Comment">
     <input asp-for="post_id" hidden>
     <textarea asp-for="comment" id="comment" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-    <label for="floatingTextarea2">Comments</label>
+    <label for="floatingTextarea2">Comment</label>
 </form>
 
 <div id="comments">
@@ -36,3 +36,7 @@
 </div>
 
 <div style="margin-bottom: 64px;"></div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/comment.js"></script>
+}

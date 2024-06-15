@@ -3,14 +3,15 @@
 @{
 }
 
-<form method="post">
-    <button asp-page-handler="Create">Create</button>
-    <button asp-page-handler="Insert">Insert</button>
-    <button asp-page-handler="Update">Update</button>
-    <button asp-page-handler="Select">Select</button>
-    <button asp-page-handler="Delete">Delete</button>
-    <button asp-page-handler="Transaction">Transaction</button>
-    <div>
-        @Model.message
-    </div>
+<form class="form-floating" method="post" asp-page-handler="Command">
+    <textarea asp-for="command" id="command" class="form-control" placeholder="Leave a command here" id="floatingTextarea2" style="height: 100px"></textarea>
+    <label for="floatingTextarea2">Command</label>
 </form>
+
+<pre id="view" style="margin-bottom: 64px;">
+
+</pre>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/sqlite.js"></script>
+}

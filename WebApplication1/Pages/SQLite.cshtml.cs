@@ -1,113 +1,72 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
+using System.Data;
+using System.Reflection.PortableExecutable;
+using System.Text.Json;
 
 namespace WebApplication1.Pages
 {
     public class SQLiteModel : PageModel
     {
         [BindProperty]
-        public string message { get; set; }
+        public DataTable dataTable { get; set; }
+
+        [BindProperty]
+        public string command { get; set; }
 
         public void OnGet()
         {
-
         }
 
-        public void OnPostCreate()
+        public IActionResult OnPostCommand()
         {
             var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
             connection.Open();
 
-            var command = connection.CreateCommand();
-            command.CommandText =
-            @"
-                CREATE TABLE user (
-                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL
-                );
-            ";
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void OnPostInsert()
-        {
-            var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
-            connection.Open();
-
-            var command = connection.CreateCommand();
-            //command.CommandText = @"INSERT INTO user VALUES (1, 'Bruce') (2, 'Alex') (3, 'Nat');";
-            command.CommandText = @"INSERT INTO user (name) VALUES ('John');";
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void OnPostUpdate()
-        {
-            var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
-            connection.Open();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"UPDATE user SET name = 'Bill' WHERE name = 'John'";
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void OnPostSelect()
-        {
-            var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
-            connection.Open();
-
-            var command = connection.CreateCommand();
-            //command.CommandText = @"SELECT id FROM user WHERE name = $name";
-            //command.Parameters.AddWithValue("name", "Bill");
-            command.CommandText = @"SELECT name FROM user";
-
-            using (var reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    message += reader.GetString(0) + " ";
-                }
-            }
-
-            connection.Close();
-        }
-
-        public void OnPostDelete()
-        {
-            var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
-            connection.Open();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"DELETE FROM user WHERE name = $name";
-            command.Parameters.AddWithValue("name", "Bill");
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void OnPostTransaction()
-        {
-            var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
-            connection.Open();
-            var transaction = connection.BeginTransaction();
+            var sqliteCommand = connection.CreateCommand();
+            sqliteCommand.CommandText = command;
 
             try
             {
-                var command = connection.CreateCommand();
-                command.CommandText = @"DELETE FROM user WHERE name = $name";
-                command.Parameters.AddWithValue("name", "Bill");
-                command.ExecuteNonQuery();
-                transaction.Commit();
+                if (command.Split(" ")[0].ToUpper() == "SELECT")
+                {
+                    var reader = sqliteCommand.ExecuteReader();
+                    dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    connection.Close();
+                    return Content(DataTableToJson(dataTable));
+                }
+                else
+                {
+                    sqliteCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return Content("[SUCCESS]");
+                }
             }
             catch
             {
-                transaction.Rollback();
-                message = "Failed to delete.";
+                connection.Close();
+                return Content("[FAIL]");
+            }
+        }
+
+        private string DataTableToJson(DataTable table)
+        {
+            // Convert DataTable to a list of dictionaries
+            var rows = new List<Dictionary<string, object>>();
+            foreach (DataRow row in table.Rows)
+            {
+                var dict = new Dictionary<string, object>();
+                foreach (DataColumn col in table.Columns)
+                {
+                    dict[col.ColumnName] = row[col];
+                }
+                rows.Add(dict);
             }
 
-            connection.Close();
+            // Serialize the list of dictionaries to JSON
+            return JsonSerializer.Serialize(rows);
         }
     }
 }
