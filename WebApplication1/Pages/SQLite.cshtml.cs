@@ -21,6 +21,11 @@ namespace WebApplication1.Pages
 
         public IActionResult OnPostCommand()
         {
+            if (command == ".tables")
+            {
+                command = "SELECT name FROM sqlite_schema WHERE type ='table' AND name NOT LIKE 'sqlite_%'";
+            }
+
             var connection = new SqliteConnection(@"data source=Databases\MyDB.db");
             connection.Open();
 
@@ -41,13 +46,13 @@ namespace WebApplication1.Pages
                 {
                     sqliteCommand.ExecuteNonQuery();
                     connection.Close();
-                    return Content("[SUCCESS]");
+                    return Content("SUCCESS");
                 }
             }
-            catch
+            catch (Exception e)
             {
                 connection.Close();
-                return Content("[FAIL]");
+                return Content(e.ToString());
             }
         }
 
