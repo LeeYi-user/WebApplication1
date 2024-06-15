@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/css/uikit.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" asp-append-version="true">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" asp-append-version="true" />
+
+    <style>
+        em {
+            color: #212529;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -56,10 +62,13 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.datatables.net/2.0.6/js/dataTables.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js" asp-append-version="true"></script>
     <script>
         $(document).ready(function () {
             let table = new DataTable("#myTable");
         });
+
+        CKEDITOR.replace('content');
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
