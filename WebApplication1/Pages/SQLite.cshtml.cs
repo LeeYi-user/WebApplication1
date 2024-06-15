@@ -40,38 +40,40 @@ namespace WebApplication1.Pages
                     dataTable = new DataTable();
                     dataTable.Load(reader);
                     connection.Close();
-                    return Content(DataTableToJson(dataTable));
+                    return Content(ConvertDataTableToHTML(dataTable));
                 }
                 else
                 {
                     sqliteCommand.ExecuteNonQuery();
                     connection.Close();
-                    return Content("SUCCESS");
+                    return Content("<pre class=\"text-success border-success\">SUCCESS</pre>");
                 }
             }
             catch (Exception e)
             {
                 connection.Close();
-                return Content(e.ToString());
+                return Content("<pre class=\"text-danger border-danger\">" + e.ToString() + "</pre>");
             }
         }
 
-        private string DataTableToJson(DataTable table)
+        public static string ConvertDataTableToHTML(DataTable dt)
         {
-            // Convert DataTable to a list of dictionaries
-            var rows = new List<Dictionary<string, object>>();
-            foreach (DataRow row in table.Rows)
+            string html = "<table class=\"table table-bordered\">";
+            //add header row
+            html += "<thead class=\"table-light\"><tr>";
+            for (int i = 0; i < dt.Columns.Count; i++)
+                html += "<th>" + dt.Columns[i].ColumnName + "</th>";
+            html += "</tr></thead><tbody>";
+            //add rows
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                var dict = new Dictionary<string, object>();
-                foreach (DataColumn col in table.Columns)
-                {
-                    dict[col.ColumnName] = row[col];
-                }
-                rows.Add(dict);
+                html += "<tr>";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                    html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                html += "</tr>";
             }
-
-            // Serialize the list of dictionaries to JSON
-            return JsonSerializer.Serialize(rows);
+            html += "</tbody></table>";
+            return html;
         }
     }
 }

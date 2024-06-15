@@ -15,12 +15,7 @@
         }).done(function (res) {
             var ele = document.getElementById("view");
 
-            try {
-                ele.innerHTML = JSON.stringify(JSON.parse(res), null, 4);
-            }
-            catch {
-                ele.innerHTML = res;
-            }
+            ele.innerHTML = res;
         });
     }
 });
